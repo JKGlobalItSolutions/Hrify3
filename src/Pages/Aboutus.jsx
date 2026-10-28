@@ -1,12 +1,11 @@
 import img1 from "../assets/About/img1.png";
-import video1 from "../assets/About/video1.mp4";
 import whoWeAreImg from "../assets/About/img2.png";
 import bgimg1 from "../assets/About/bgimg1.png";
 import img3 from "../assets/About/img3.png";
 import img4 from "../assets/About/img4.png";
 import HrifyLogo from "../assets/Navbar/logo.png";
 import Form from "../Components/Form";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import logo1 from "../assets/Services/logo1.png";
 import logo2 from "../assets/Services/logo2.png";
 import logo3 from "../assets/Services/logo3.png";
@@ -19,67 +18,121 @@ import logo9 from "../assets/Services/logo9.png";
 import logo10 from "../assets/Services/logo10.png";
 
 import { motion } from "framer-motion";
+
+/* ================= DESIGN TOKENS ================= */
+const INK = "#0B2533";
+const TEAL = "#0096b2";
+const DEEP = "#015670";
+const MUTED = "#5a6a72";
+const SOFT_BG = "#f6fbfd";
+
+const SECTION_PAD = { paddingTop: "100px", paddingBottom: "100px" };
+
+const CLIENT_LOGOS = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8, logo9, logo10];
+
+const SERVICES = [
+  {
+    title: "Talent Management",
+    desc: "Strategic talent solutions designed to attract, develop, and retain high-performing professionals across industries.",
+    items: [
+      "Contract & Permanent Hiring",
+      "Contract-to-Hire",
+      "On-demand Workforce",
+      "Leadership & Executive Hiring",
+      "Campus Recruitment Programs",
+      "Employee Training & Development",
+      "Talent Pipeline Building",
+    ],
+  },
+  {
+    title: "IT Services",
+    desc: "Technology-driven services helping businesses build, scale, and modernize their digital ecosystem.",
+    items: [
+      "Design & Development",
+      "Business Solutions",
+      "Networking Solutions",
+      "Cybersecurity",
+      "Blockchain",
+      "Enterprise Solutions",
+      "AI & ML",
+      "Managed Services",
+      "Quality Engineering",
+    ],
+  },
+];
+
+const VALUES = [
+  {
+    title: "Client-First",
+    desc: "Every engagement starts with understanding your goals, not fitting you into a template.",
+  },
+  {
+    title: "Quality-Driven",
+    desc: "We vet for skill and cultural fit, so placements last beyond the first ninety days.",
+  },
+  {
+    title: "Built on Trust",
+    desc: "Long-term partnerships over one-off placements — we stay accountable after the hire.",
+  },
+  {
+    title: "People-First Growth",
+    desc: "We build careers, not just fill roles, through initiatives like our REVIVE program.",
+  },
+];
+
+/* ================= ANIMATION VARIANTS ================= */
+const fadeUp = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: "easeOut" } },
+};
+
+const fadeLeft = {
+  hidden: { opacity: 0, x: -60 },
+  visible: { opacity: 1, x: 0, transition: { duration: 1, ease: "easeOut" } },
+};
+
+const fadeRight = {
+  hidden: { opacity: 0, x: 60 },
+  visible: { opacity: 1, x: 0, transition: { duration: 1, ease: "easeOut" } },
+};
+
+/* ================= SMALL UI HELPERS ================= */
+const Eyebrow = ({ children, center }) => (
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: center ? "center" : "flex-start",
+      gap: "10px",
+      marginBottom: "16px",
+    }}
+  >
+    <span style={{ width: "28px", height: "3px", background: TEAL, borderRadius: "2px" }} />
+    <span
+      style={{
+        color: TEAL,
+        fontWeight: 700,
+        letterSpacing: "2px",
+        fontSize: "13px",
+        textTransform: "uppercase",
+      }}
+    >
+      {children}
+    </span>
+  </div>
+);
+
 function About() {
-
-
-
-  const fadeUpStyle = {
-    animation: "fadeUp 1.2s ease-out forwards",
-    opacity: 0,
-  };
-
-  const arrowStyle = {
-    fontSize: "50px",
-    display: "inline-block",
-    animation: "arrowMove 1.5s ease-in-out infinite",
-  };
-
-
-
-  const fadeUp = {
-    hidden: { opacity: 0, y: 60 },
-    visible: { opacity: 1, y: 0 }
-  };
-
-  const fadeLeft = {
-    hidden: { opacity: 0, x: -80 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 1.5, // seconds (increase this)
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const fadeRight = {
-    hidden: { opacity: 0, x: 80 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 1.5, // seconds increase
-        ease: "easeOut"
-      }
-    }
-  };
-
-
   return (
     <>
-
-
-
       <style>
         {`
-          body { margin:0; }
+          body { margin: 0; padding: 0; }
 
           .glass-card{
-            background: rgba(255,255,255,0.9);
-            backdrop-filter: blur(14px);
-            border-radius: 24px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.08);
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(1,86,112,0.08);
             height: 100%;
           }
 
@@ -90,641 +143,498 @@ function About() {
           }
 
           .hover-lift{
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
           }
-
           .hover-lift:hover{
-            transform: translateY(-12px);
-            box-shadow: 0 30px 70px rgba(0,0,0,0.12);
+            transform: translateY(-8px);
+            box-shadow: 0 26px 60px rgba(1,86,112,0.14);
           }
 
-          .service-icon{
-            font-size: 42px;
-            margin-bottom: 15px;
+          .clean-list{
+            list-style: none;
+            padding-left: 0;
+            margin: 20px 0 0;
+          }
+          .clean-list li{
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 12px;
+            color: #3d4a52;
+            font-size: 15.5px;
+            line-height: 1.5;
+          }
+          .clean-list li::before{
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #0096b2;
+            font-weight: 700;
+          }
+
+          .value-card{
+            border-left: 3px solid #0096b2;
+            padding: 6px 0 6px 20px;
+            transition: border-color 0.25s ease;
+          }
+
+          @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes logoScroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+          }
+          .logo-track:hover .logo-track-inner { animation-play-state: paused; }
+          .logo-item:hover { transform: scale(1.08); }
+
+          .about-hero-card { animation: fadeUp 1.1s ease-out forwards; opacity: 0; }
+
+          /* ===== Full-bleed split layout (Option 1) ===== */
+          .full-bleed-split{
+            display: flex;
+            align-items: stretch;
+            width: 100%;
+            min-height: 560px;
+          }
+          .full-bleed-split.reverse{
+            flex-direction: row-reverse;
+          }
+          .full-bleed-media{
+            flex: 1 1 50%;
+            position: relative;
+            overflow: hidden;
+          }
+          .full-bleed-media img{
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+          }
+          .full-bleed-text{
+            flex: 1 1 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px clamp(24px, 6vw, 90px);
+          }
+
+          @media (max-width: 768px) {
+            .about-hero-card { margin-top: -70px !important; padding: 28px !important; max-width: 92% !important; }
+            .logo-track-inner { gap: 40px; }
+            .logo-item img { height: 50px; }
+
+            .full-bleed-split, .full-bleed-split.reverse{
+              flex-direction: column;
+              min-height: unset;
+            }
+            .full-bleed-media{
+              min-height: 320px;
+            }
+            .full-bleed-text{
+              padding: 44px 24px;
+            }
+          }
+          @media (max-width: 480px) {
+            .logo-track-inner { gap: 28px; }
+            .logo-item img { height: 40px; }
           }
         `}
       </style>
-      {/* REMOVE DEFAULT BODY MARGIN */}
-      <style>
-        {`body { margin: 0; padding: 0; }`}
-      </style>
 
-
-      {/* ================= HERO SECTION ================= */}
-      <div className="container-fluid p-0">
-        <div
-          className="d-flex align-items-center"
-          style={{
-            position: "relative",
-            minHeight: "100vh",
-            width: "100%",
-            backgroundImage: `url(${img1})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            overflow: "hidden",
-          }}
-        >
-          {/* Gradient Overlay */}
+      {/* ================= HERO ================= */}
+      <div className="container-fluid p-0" style={{ background: "#fff" }}>
+        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "88px 16px 0" }}>
           <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                "linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(244, 238, 238, 0))",
-              zIndex: 1,
-            }}
-          />
-
-          {/* Content */}
-          <div
-            className="container"
             style={{
               position: "relative",
-              zIndex: 2,
-              color: "#fff",
-              paddingTop: "120px",
-              paddingBottom: "60px",
-              paddingLeft: "30px",
-              ...fadeUpStyle,
+              width: "100%",
+              height: "60vh",
+              minHeight: "420px",
+              borderRadius: "8px",
+              overflow: "hidden",
             }}
           >
-            <h1 style={{ fontSize: "75px", fontWeight: "700" }}>
-              About Us
-            </h1>
-
-            <h3 style={{ fontSize: "32px", fontWeight: "400" }}>
-              Connecting talent with opportunity
-            </h3>
-
-            {/* Animated Arrow */}
-            <p style={arrowStyle}>→</p>
-          </div>
-
-          {/* Animations */}
-          <style>
-            {`
-            @keyframes fadeUp {
-              from {
-                opacity: 0;
-                transform: translateY(30px);
-              }
-              to {
-                opacity: 1;
-                transform: translateY(0);
-              }
-            }
-
-            @keyframes arrowMove {
-              0% {
-                transform: translateX(0);
-              }
-              50% {
-                transform: translateX(20px); /* ~5cm */
-              }
-              100% {
-                transform: translateX(0);
-              }
-            }
-          `}
-          </style>
-        </div>
-      </div>
-
-
-
-
-
-      {/* ================= CONTENT SECTION ================= */}
-      {/* 🔥 mt-5 REMOVED HERE */}
-      <div
-        className="mt-0"
-        style={{
-          backgroundColor: "#fff",
-          position: "relative",
-          zIndex: 2,
-        }}
-      >
-        <div className="container text-center pt-3">
-
-          <h2 className="mt-5 mb-3 fw-bold" style={{ fontSize: "40px", fontFamily: "'Outfit', sans-serif" }} >Streamlining Talent Management for Business Growth </h2>
-          <p className="mb-5" style={{ color: "#015670", fontSize: "18px", fontFamily: "'Outfit', sans-serif" }}>HRIFY specializes in providing comprehensive talent management services tailored to meet diverse business needs, with a focus on IT Staffing. We offer flexible solutions, including: </p>
-        </div>
-
-
-
-
-
-        {/* ================= WHO WE ARE ================= */}
-        <div style={{ background: "#f6fbfd", padding: "90px 0" }}>
-          <div className="container">
-            <div className="row align-items-center">
-
-              <motion.div
-                className="col-lg-6 mb-4 mb-lg-0"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeLeft}
-              >
-                <div className="glass-card p-3">
-                  <img
-                    src={whoWeAreImg}
-                    alt="Who We Are HRIFY"
-                    className="img-fluid"
-                    style={{ borderRadius: "20px" }}
-                  />
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="col-lg-6"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeRight}
-              >
-                <span
-                  style={{
-                    background: "#e6f7fc",
-                    color: "#015670",
-                    padding: "6px 16px",
-                    borderRadius: "20px",
-                    fontSize: "14px",
-                    fontWeight: "600"
-                  }}
-                >
-                  WHO WE ARE
-                </span>
-
-                <h2 style={{ fontSize: "42px", fontWeight: "700", marginTop: "20px" }}>
-                  Empowering Businesses Through People
-                </h2>
-
-                <p style={{ fontSize: "18px", lineHeight: "1.8", marginTop: "20px" }}>
-                  HRIFY is a people-first IT staffing and talent solutions company dedicated to helping organizations build high-performing teams. We specialize in IT staffing, strategic talent management, and technology services that enable businesses to scale faster and smarter.
-
-                  With a deep understanding of the evolving tech landscape, we connect skilled professionals with the right opportunities through flexible hiring models, quality-driven recruitment, and long-term partnerships. From startups to enterprises, we act as a trusted partner in aligning talent, technology, and business goals.
-
-                  At HRIFY, we don’t just fill roles — we build careers, empower diversity through initiatives like our REVIVE program, and deliver workforce solutions that drive sustainable growth.
-                </p>
-              </motion.div>
-
+            <img
+              src={img1}
+              alt="HRIFY About Hero"
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+            {/* Dark gradient scrim for text readability */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background:
+                  "linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%)",
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                bottom: 0,
+                padding: "40px clamp(24px, 5vw, 64px)",
+                maxWidth: "640px",
+              }}
+            >
+              <h1 style={{ fontSize: "clamp(30px, 4vw, 42px)", fontWeight: 800, color: "#fff", marginBottom: "12px" }}>
+                About Us
+              </h1>
+              <p style={{ fontSize: "17px", color: "#e6edf0", lineHeight: 1.6, margin: 0 }}>
+                Connecting talent with opportunity.
+              </p>
             </div>
           </div>
         </div>
+      </div>
 
+      {/* ================= CONTENT ================= */}
+      <div style={{ backgroundColor: "#fff", position: "relative", zIndex: 2 }}>
+        {/* Intro */}
+        <div className="container text-center" style={{ paddingTop: "80px", paddingBottom: "20px" }}>
+          <Eyebrow center>Our Story</Eyebrow>
+          <h2
+            className="fw-bold mb-3"
+            style={{ fontSize: "clamp(28px, 4vw, 40px)", fontFamily: "'Outfit', sans-serif", color: INK }}
+          >
+            Streamlining Talent Management for Business Growth
+          </h2>
+          <p
+            className="mx-auto"
+            style={{
+              color: MUTED,
+              fontSize: "18px",
+              fontFamily: "'Outfit', sans-serif",
+              maxWidth: "700px",
+              lineHeight: 1.8,
+            }}
+          >
+            HRIFY specializes in providing comprehensive talent management services
+            tailored to meet diverse business needs, with a focus on IT staffing. We
+            offer flexible solutions built around how your business actually works.
+          </p>
+        </div>
 
+        {/* ================= WHO WE ARE (full-bleed split) ================= */}
+        <div style={{ background: SOFT_BG }}>
+          <div className="full-bleed-split">
+            <motion.div
+              className="full-bleed-media"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeLeft}
+            >
+              <img src={whoWeAreImg} alt="Who We Are HRIFY" />
+            </motion.div>
+
+            <motion.div
+              className="full-bleed-text"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeRight}
+            >
+              <Eyebrow>Who We Are</Eyebrow>
+              <h2
+                style={{
+                  fontSize: "clamp(28px, 3.5vw, 40px)",
+                  fontWeight: 700,
+                  fontFamily: "'Outfit', sans-serif",
+                  color: INK,
+                  marginBottom: "22px",
+                }}
+              >
+                Empowering Businesses Through People
+              </h2>
+
+              <p style={{ fontSize: "17px", lineHeight: 1.85, color: "#3d4a52", marginBottom: "16px" }}>
+                HRIFY is a people-first IT staffing and talent solutions company
+                dedicated to helping organizations build high-performing teams. We
+                specialize in IT staffing, strategic talent management, and
+                technology services that enable businesses to scale faster and
+                smarter.
+              </p>
+              <p style={{ fontSize: "17px", lineHeight: 1.85, color: "#3d4a52", marginBottom: "16px" }}>
+                With a deep understanding of the evolving tech landscape, we connect
+                skilled professionals with the right opportunities through flexible
+                hiring models, quality-driven recruitment, and long-term
+                partnerships. From startups to enterprises, we act as a trusted
+                partner in aligning talent, technology, and business goals.
+              </p>
+              <p style={{ fontSize: "17px", lineHeight: 1.85, color: "#3d4a52", marginBottom: 0 }}>
+                At HRIFY, we don't just fill roles — we build careers, empower
+                diversity through initiatives like our REVIVE program, and deliver
+                workforce solutions that drive sustainable growth.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* ================= OUR SERVICES ================= */}
         <motion.div
-          className="container py-5"
+          className="container"
+          style={SECTION_PAD}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeUp}
         >
-          <h2 className="gradient-text text-center mb-5" style={{ fontSize: "40px" }} ><b>Our Services</b></h2>
+          <div className="text-center mb-5">
+            <Eyebrow center>What We Do</Eyebrow>
+            <h2
+              className="gradient-text fw-bold"
+              style={{ fontSize: "clamp(28px, 4vw, 40px)", fontFamily: "'Outfit', sans-serif" }}
+            >
+              Our Services
+            </h2>
+          </div>
 
           <div className="row g-4">
-
-            {/* Talent Management */}
-            <div className="col-md-6">
-              <div className="glass-card p-4 hover-lift">
-                <h4>Talent Management</h4>
-                <p>
-                  Strategic talent solutions designed to attract, develop, and retain
-                  high-performing professionals across industries.
-                </p>
-
-                <ul>
-                  <li>Contract & Permanent Hiring</li>
-                  <li>Contract-to-Hire</li>
-                  <li>On-demand Workforce</li>
-                  <li>Leadership & Executive Hiring</li>
-                  <li>Campus Recruitment Programs</li>
-                  <li>Employee Training & Development</li>
-                  <li>Talent Pipeline Building</li>
-                </ul>
+            {SERVICES.map((s) => (
+              <div className="col-md-6" key={s.title}>
+                <div className="glass-card p-4 p-lg-5 hover-lift">
+                  <h4 style={{ color: INK, fontWeight: 700, fontFamily: "'Outfit', sans-serif" }}>
+                    {s.title}
+                  </h4>
+                  <p style={{ color: MUTED, fontSize: "16px", lineHeight: 1.7, marginBottom: 0 }}>
+                    {s.desc}
+                  </p>
+                  <ul className="clean-list">
+                    {s.items.map((it) => (
+                      <li key={it}>{it}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
-
-            {/* IT Services */}
-            <div className="col-md-6">
-              <div className="glass-card p-4 hover-lift">
-                <h4>IT Services</h4>
-                <p>
-                  Technology-driven services helping businesses build, scale, and
-                  modernize their digital ecosystem.
-                </p>
-
-                <ul>
-                  <li>Design & Development</li>
-                  <li>Business Solutions</li>
-                  <li>Networking Solutions</li>
-                  <li>Cybersecurity</li>
-                  <li>Blockchain</li>
-                  <li>Enterprise</li>
-                  <li>AI & ML</li>
-                  <li>Managed Services</li>
-                  <li>Quality Engineering</li>
-                </ul>
-              </div>
-            </div>
-
+            ))}
           </div>
         </motion.div>
 
-
-        {/* ================= VISION & MISSION SECTION ================= */}
-
-
-
-
-
-
-
-
+        {/* ================= VISION & MISSION ================= */}
         <div
           style={{
             background: "linear-gradient(90deg, #CFF4FF 0%, #FFFFFF 100%)",
-            width: "100%",
-            padding: "70px 0",
+            ...SECTION_PAD,
           }}
         >
           <div className="container">
-            <div className="row align-items-center">
-
-              {/* LEFT PROFILE */}
-              <div className="col-lg-4 col-md-12 text-center mb-4 mb-lg-0">
-                <img
-                  src={img3}
-                  alt="Founder & CEO"
-                  style={{
-                    width: "280px",
-                    // borderRadius: "20px",
-                    // boxShadow: "0 12px 30px rgba(0,0,0,0.12)"
-                  }}
-                />
-
-                <h5 className="mt-3 fw-semibold" style={{ color: "#015670" }}>
-                  Jayakrishnan J
-                </h5>
-
-                <p style={{ color: "#015670", marginBottom: "8px" }}>
-                  Founder & CEO
-                </p>
-
+            <div className="row align-items-start g-5">
+              {/* Profile */}
+              <div className="col-lg-4 col-md-12 text-center">
                 <div
-                  style={{
-                    background: "#fff",
-                    padding: "6px 16px",
-                    borderRadius: "6px",
-                    display: "inline-block",
-                  }}
+                  className="glass-card p-4 mx-auto"
+                  style={{ maxWidth: "320px" }}
                 >
-                  <img src={HrifyLogo} alt="HRIFY" style={{ height: "28px" }} />
+                  <img
+                    src={img3}
+                    alt="Founder & CEO"
+                    className="img-fluid"
+                    style={{ borderRadius: "14px", marginBottom: "18px" }}
+                  />
+                  <h5 className="fw-semibold mb-1" style={{ color: DEEP }}>
+                    Jayakrishnan J
+                  </h5>
+                  <p style={{ color: MUTED, marginBottom: "14px", fontSize: "15px" }}>
+                    Founder &amp; CEO
+                  </p>
+                  <div
+                    style={{
+                      background: "#f5fbfd",
+                      padding: "8px 18px",
+                      borderRadius: "8px",
+                      display: "inline-block",
+                    }}
+                  >
+                    <img src={HrifyLogo} alt="HRIFY" style={{ height: "26px" }} />
+                  </div>
                 </div>
               </div>
 
-              {/* RIGHT CONTENT */}
-              <div className="col-lg-8 col-md-12 ps-lg-5">
+              {/* Vision + Mission */}
+              <div className="col-lg-8 col-md-12">
+                <div className="value-card mb-5">
+                  <Eyebrow>Vision</Eyebrow>
+                  <p style={{ color: "#1c2b32", lineHeight: 1.9, fontSize: "17px", marginBottom: 0 }}>
+                    Known for its innovative solutions and exceptional client service,
+                    HRIFY Technologies sets the standard in{" "}
+                    <strong>Talent Management, IT Services &amp; IT Consulting</strong>{" "}
+                    through cutting-edge technologies and a strong commitment to
+                    exceeding customer expectations.
+                  </p>
+                </div>
 
-                {/* VISION */}
-                <h3 className="fw-bold mb-3 text-center"
-                  style={{ color: "#015670" }}>
-                  VISION
-                </h3>
-
-                <p style={{
-                  color: "#000000"   // black color
-                  , lineHeight: "1.9", fontSize: "17px"
-                }}>
-                  Known for its innovative solutions and exceptional client service,
-                  HRIFY Technologies sets the standard in{" "}
-                  <strong>Talent Management, IT Services & IT Consulting </strong>
-                  through cutting-edge technologies and a strong commitment to
-                  exceeding customer expectations.
-                </p>
-
-                {/* MISSION */}
-                <h3
-                  className="fw-bold mb-3 text-center"
-                  style={{ color: "#015670" }}
-                >
-                  MISSION
-                </h3>
-
-                <p style={{ color: "#000000", lineHeight: "1.9", fontSize: "17px" }}>
-                  Our mission is to partner with businesses across industries by
-                  delivering reliable IT solutions through a strong network of skilled
-                  teams, while ensuring client satisfaction and fostering a positive,
-                  people-first work culture.
-                </p>
-
+                <div className="value-card">
+                  <Eyebrow>Mission</Eyebrow>
+                  <p style={{ color: "#1c2b32", lineHeight: 1.9, fontSize: "17px", marginBottom: 0 }}>
+                    Our mission is to partner with businesses across industries by
+                    delivering reliable IT solutions through a strong network of
+                    skilled teams, while ensuring client satisfaction and fostering a
+                    positive, people-first work culture.
+                  </p>
+                </div>
               </div>
-
             </div>
           </div>
         </div>
 
+        {/* ================= WHAT DRIVES US (full-bleed split) ================= */}
+        <div
+          style={{
+            position: "relative",
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.94), rgba(255,255,255,0.97)), url(${bgimg1})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div className="full-bleed-split">
+            <motion.div
+              className="full-bleed-media"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeLeft}
+            >
+              <img src={img4} alt="What Drives HRIFY" />
+            </motion.div>
 
-
-        <div className="container py-5">
-          <div className="row align-items-center"
-
-
-
-          // style={{ borderBottom: "3px solid #000" }}
-
-
-
-          >
-
-            {/* Left Side - Image */}
-            <div className="col-md-6 mb-3 mb-md-0">
-              <img
-                src={img4}
-                alt="Guiding Vision"
-                className="img-fluid"
-                style={{
-                  width: "100%",
-                  borderRadius: "12px",
-                  boxShadow: "0 4px 15px rgba(0,0,0,0.15)"
-                }}
-              />
-            </div>
-
-            {/* Right Side - Content */}
-            <div className="col-md-6">
+            <motion.div
+              className="full-bleed-text"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeRight}
+            >
+              <Eyebrow>What Drives Us</Eyebrow>
               <h2
-                style={{ fontSize: "36px", fontWeight: "medium", justifyContent: "center", fontFamily: "'Outfit', sans-serif" }}
+                style={{
+                  fontSize: "clamp(26px, 3.5vw, 36px)",
+                  fontWeight: 700,
+                  fontFamily: "'Outfit', sans-serif",
+                  color: INK,
+                  marginBottom: "28px",
+                }}
               >
-                Guiding the Vision
+                The Values Behind Every Placement
               </h2>
 
-              <h5 style={{ fontWeight: "600", color: "#015670", fontFamily: "'Outfit', sans-serif", fontSize: "20px" }}>General Version (for personal profile or business):</h5>
-              <p style={{ lineHeight: "1.7", fontFamily: "'Outfit', sans-serif", fontSize: "20px" }}>"Passionate about delivering excellence, we strive to create meaningful experiences through innovation, dedication, and a deep understanding of our field."</p>
-
-              <h5 style={{ fontWeight: "600", color: "#015670", fontFamily: "'Outfit', sans-serif", fontSize: "20px" }}>Corporate Version:</h5>
-              <p style={{ lineHeight: "1.7", fontFamily: "'Outfit', sans-serif", fontSize: "20px" }}>"We are committed to providing reliable and cutting-edge solutions that drive growth and add value to our clients' businesses."</p>
-
-              <h5 style={{ fontWeight: "600", color: "#015670", fontFamily: "'Outfit', sans-serif", fontSize: "20px" }}>Creative Professional Version:</h5>
-              <p style={{ lineHeight: "1.7", fontFamily: "'Outfit', sans-serif", fontSize: "20px" }}>"Driven by creativity and inspired by purpose, I bring ideas to life through storytelling, design, and a constant desire to learn."</p>
-
-
-            </div>
-
+              <div className="d-flex flex-column gap-4">
+                {VALUES.map((v) => (
+                  <div className="value-card" key={v.title}>
+                    <h6 style={{ color: DEEP, fontWeight: 700, marginBottom: "6px" }}>
+                      {v.title}
+                    </h6>
+                    <p style={{ color: MUTED, fontSize: "15.5px", lineHeight: 1.7, marginBottom: 0 }}>
+                      {v.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </div>
 
-
-        {/* ================= CLIENTS SECTION ================= */}
-        <section className="clients py-5" style={{ backgroundColor: "#f8f9fa" }}>
+        {/* ================= CLIENTS ================= */}
+        <section style={{ ...SECTION_PAD, backgroundColor: "#f8f9fa" }}>
           <div className="container">
-            <h2 className="gradient-text text-center mb-5" style={{ color: "#00566F", fontFamily: "'Outfit', sans-serif", fontSize: "36px" }}>
-              <b>Trusted By Our Clients</b>
-            </h2>
+            <div className="text-center mb-5">
+              <Eyebrow center>Our Network</Eyebrow>
+              <h2
+                className="fw-bold"
+                style={{ color: "#00566F", fontFamily: "'Outfit', sans-serif", fontSize: "clamp(28px, 4vw, 36px)" }}
+              >
+                Trusted By Our Clients
+              </h2>
+            </div>
 
             <div className="logo-track" style={{ overflow: "hidden", width: "100%" }}>
-              <div className="logo-track-inner" style={{
-                display: "flex",
-                width: "max-content",
-                animation: "scroll 25s linear infinite",
-                gap: "60px"
-              }}>
-                {/* First set of logos */}
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
+              <div
+                className="logo-track-inner"
+                style={{
                   display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo1} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo2} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo3} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo4} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo5} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo6} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo7} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo8} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo9} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo10} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-
-
-
-                {/* Duplicate set of logos for seamless looping */}
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo1} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo2} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo3} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo4} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo5} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo6} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo7} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo8} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo9} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-                <div className="logo-item" style={{
-                  flexShrink: 0,
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "transform 0.3s ease"
-                }}>
-                  <img src={logo10} alt="client" style={{ height: "70px", objectFit: "contain" }} />
-                </div>
-
-
+                  width: "max-content",
+                  animation: "logoScroll 25s linear infinite",
+                  gap: "60px",
+                }}
+              >
+                {[...CLIENT_LOGOS, ...CLIENT_LOGOS].map((logo, i) => (
+                  <div
+                    className="logo-item"
+                    key={i}
+                    style={{
+                      flexShrink: 0,
+                      height: "70px",
+                      display: "flex",
+                      alignItems: "center",
+                      transition: "transform 0.3s ease",
+                    }}
+                  >
+                    <img src={logo} alt="client logo" style={{ height: "70px", objectFit: "contain" }} />
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-
-          <style>
-            {`
-      .logo-track:hover .logo-track-inner {
-        animation-play-state: paused;
-      }
-
-      .logo-item:hover {
-        transform: scale(1.1);
-      }
-
-      @keyframes scroll {
-        from { transform: translateX(0); }
-        to { transform: translateX(-50%); }
-      }
-
-      @media (max-width: 768px) {
-        .logo-track-inner {
-          gap: 40px;
-        }
-        .logo-item img {
-          height: 50px;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .logo-track-inner {
-          gap: 30px;
-        }
-        .logo-item img {
-          height: 40px;
-        }
-      }
-    `}
-          </style>
         </section>
 
+        {/* ================= LET'S TALK / FORM ================= */}
+        <div style={{ background: SOFT_BG }}>
+          <div className="container" style={SECTION_PAD}>
+            <div className="row g-5">
+              <div className="col-lg-5 col-md-12">
+                <p
+                  style={{
+                    color: TEAL,
+                    fontSize: "16px",
+                    fontWeight: 600,
+                    marginBottom: "14px",
+                  }}
+                >
+                  Let's Talk
+                </p>
+                <h2
+                  style={{
+                    color: INK,
+                    fontFamily: "'Outfit', sans-serif",
+                    fontWeight: 400,
+                    fontSize: "clamp(32px, 4vw, 46px)",
+                    lineHeight: 1.2,
+                    marginBottom: "20px",
+                  }}
+                >
+                  Let's Bring Your Vision to Life
+                </h2>
+                <p
+                  style={{
+                    color: MUTED,
+                    fontFamily: "'Outfit', sans-serif",
+                    fontSize: "16.5px",
+                    lineHeight: 1.75,
+                    maxWidth: "420px",
+                    marginBottom: 0,
+                  }}
+                >
+                  Your journey toward innovation and success starts here. Connect
+                  with us to explore how we can collaborate to achieve your goals.
+                </p>
+              </div>
 
-
-        <div className="container mt-4 mb-2 text-center">
-          <h2 style={{ color: "#015670", fontFamily: "'Outfit', sans-serif", fontSize: "36px" }}><b>Let’s Bring Your Vision to Life</b></h2>
-          <p style={{ color: "#949494", fontFamily: "'Outfit', sans-serif", fontSize: "20px" }}>Your journey toward innovation and success starts here. Connect with us to explore how we can collaborate to achieve your goals.</p>
+              <div className="col-lg-7 col-md-12">
+                <Form />
+              </div>
+            </div>
+          </div>
         </div>
-        <Form />
       </div>
     </>
   );

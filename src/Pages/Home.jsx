@@ -1,619 +1,211 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from "react-router-dom";
-import video1 from "../assets/Home/hero-video.mp4";
-import img1 from "../assets/Home/img11.jpeg";
 import img2 from "../assets/Home/img2.jpg";
 import img3 from "../assets/Home/img3.jpg";
 import img4 from "../assets/Home/img4.jpg";
+import futureImg from "../assets/Talent_management/img2.jpeg";
+import { Users, Wallet, ClipboardCheck, Target, Settings, Laptop } from "lucide-react";
+import HeroSection from "../Components/HeroSection";
 
 
 import { motion } from "framer-motion";
 
-const cardVariant = {
-  hiddenLeft: { opacity: 0, x: -120 },
-  hiddenRight: { opacity: 0, x: 120 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.8, ease: "easeOut" }
-  }
-};
+const services = [
+  { title: "Recruitment", icon: Users },
+  { title: "Payroll Management", icon: Wallet },
+  { title: "KYC & Compliance", icon: ClipboardCheck },
+  { title: "Talent Management", icon: Target },
+  { title: "Business Process Mgmt", icon: Settings },
+  { title: "Digital Technology", icon: Laptop },
+];
 
+const serviceItems = [
+  {
+    img: img2,
+    title: "Digital Technology Services",
+    desc: "Our specialized digital services division, Hrify Digital, delivers exceptional digital solutions that empower clients to transform and revolutionize their businesses.",
+    link: "Discover Our Digital Services",
+    path: "/services",
+  },
+  {
+    img: img3,
+    title: "Talent Management",
+    desc: "We enable clients to identify, recruit, and place specialized talent, ensuring success today while building a strong foundation for the future.",
+    link: "Learn About Our Talent Expertise",
+    path: "/talent_management",
+  },
+  {
+    img: img4,
+    title: "Business Process Management",
+    desc: "We create robust digital business frameworks through continuous analysis, testing, and performance monitoring to drive long-term growth.",
+    link: "Explore BPM Solutions",
+    path: "/sonachala",
+  },
+];
+
+const COLORS = {
+  navy: "#0B2533",
+  teal: "#087E8B",
+  gold: "#F5B942",
+  white: "#FFFFFF",
+  lightBg: "#F4FAFB",
+};
 
 function Home() {
   return (
     <>
-{
+      <div style={{ backgroundColor: "#fff" }}>
+        {/* ================= HERO SECTION ================= */}
+        <HeroSection />
 
-/* 
-      ================= HERO SECTION =================
-      <div className="container-fluid p-0">
-        <div
-          className="d-flex justify-content-center align-items-start"
-          style={{
-            position: "relative",
-            minHeight: "100vh",
-            overflow: "hidden",
-          }}
-        >
-          Fixed Background Video
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              zIndex: -2,
-            }}
-          >
-            <source src={video1} type="video/mp4" />
-          </video>
-
-          Overlay
-          <div
-            style={{
-              position: "fixed",
-              inset: 0,
-              backgroundColor: "rgba(0,0,0,0.4)",
-              zIndex: -1,
-            }}
-          ></div>
-
-          Hero Content
-          <div
-            className="container-fluid"
-            style={{
-              position: "relative",
-              paddingTop: "400px",
-              paddingBottom: "80px",
-              color: "#fff",
-            }}
-          >
-            <div className="container">
-              <h1
-                style={{
-                  fontSize: "75px",
-                  paddingLeft: "30px",
-                  marginBottom: "10px",
-                }}
-              >
-                <b>Hrify</b>
-              </h1>
-
-              <h3
-                style={{
-                  paddingLeft: "30px",
-                  fontSize: "32px",
-                  fontWeight: "400",
-                  marginTop: 0,
-                }}
-              >
-                Leading the way forward
-              </h3>
-              <p style={{
-                paddingLeft: "30px",
-                fontSize: "32px", fontSize: "50px"
-              }}>→</p>
-
-              small scroll space only
-              <div style={{ height: "40vh" }}></div>
+        {/* ================= SERVICES SLIDING STRIP ================= */}
+        <div style={{ background: COLORS.lightBg, padding: "50px 0", overflow: "hidden" }}>
+          <h3 style={{ textAlign: "center", color: COLORS.navy, fontWeight: 700, fontSize: "22px", marginBottom: "35px", letterSpacing: "0.5px" }}>
+            What We Offer
+          </h3>
+          <div className="services-track-wrapper">
+            <div className="services-track">
+              {[...services, ...services].map((service, index) => {
+                const Icon = service.icon;
+                return (
+                  <div className="service-card" key={index}>
+                    <div className="service-icon">
+                      <Icon size={32} color={COLORS.teal} strokeWidth={1.8} />
+                    </div>
+                    <p className="service-title">{service.title}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
+          <style>
+            {`
+              .services-track-wrapper {
+                width: 100%; overflow: hidden;
+                mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+                -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+              }
+              .services-track { display: flex; gap: 24px; width: max-content; animation: scrollTrack 25s linear infinite; }
+              .services-track-wrapper:hover .services-track { animation-play-state: paused; }
+              .service-card {
+                flex: 0 0 auto; width: 220px; background: #fff; border-radius: 16px;
+                padding: 28px 20px; text-align: center; box-shadow: 0 8px 24px rgba(11,37,51,0.08);
+                border: 1px solid rgba(11,37,51,0.06);
+              }
+              .service-icon { margin-bottom: 12px; display: flex; justify-content: center; }
+              .service-title { font-weight: 600; color: ${COLORS.navy}; font-size: 15px; margin: 0; }
+              @keyframes scrollTrack { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+            `}
+          </style>
         </div>
-      </div> */}
-
-
-
-
-
-<div style={{ backgroundColor: "#fff" }}>
-  <section
-    style={{
-      position: "relative",
-      minHeight: "100vh",
-      overflow: "hidden",
-      background: "linear-gradient(180deg, #0f3a4f 0%, #1e5a73 100%)",
-      paddingTop: "180px",
-      paddingBottom: "120px", // wave-ku space
-    }}
-  >
-    {/* Floating blobs */}
-    <motion.div
-      style={{
-        position: "absolute",
-        top: "80px",
-        left: "40px",
-        width: "280px",
-        height: "280px",
-        borderRadius: "50%",
-        background: "rgba(245,194,107,0.15)",
-        filter: "blur(120px)",
-      }}
-      animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
-      transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-    />
-
-    <motion.div
-      style={{
-        position: "absolute",
-        bottom: "80px",
-        right: "60px",
-        width: "380px",
-        height: "380px",
-        borderRadius: "50%",
-        background: "rgba(255,255,255,0.12)",
-        filter: "blur(140px)",
-      }}
-      animate={{ x: [0, -40, 0], y: [0, 30, 0] }}
-      transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-    />
-
-    {/* Bottom wave */}
-    <svg
-      viewBox="0 0 1440 120"
-      style={{ position: "absolute", bottom: 0, width: "100%" }}
-    >
-      <path
-        fill="#fff"
-        d="M0 60C240 120 480 0 720 60C960 120 1100 0 1440 60V120H0Z"
-      />
-    </svg>
-
-    <div
-      className="hero-wrapper"
-      style={{
-        maxWidth: "1200px",
-        margin: "0 auto",
-        padding: "0 24px",
-        display: "flex",
-        alignItems: "center",
-        gap: "60px",
-      }}
-    >
-      {/* LEFT */}
-      <div className="hero-left" style={{ flex: 1, color: "#fff" }}>
-        {/* <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "10px",
-            padding: "8px 16px",
-            borderRadius: "999px",
-            background: "rgba(255,255,255,0.12)",
-            border: "1px solid rgba(255,255,255,0.25)",
-            marginBottom: "24px",
-            fontSize: "14px",
-          }}
-        >
-          <span
-            style={{
-              width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              background: "#007EA3",
-            }}
-          />
-          A HRIFY Initiative
-        </motion.div> */}
-
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="hero-title"
-          style={{
-            fontSize: "50px",
-            fontWeight: 800,
-            lineHeight: 1.1,
-            marginBottom: "20px",
-          }}
-        >
-          <span style={{ color: "#f5c26b" }}>HRIFY</span>
-          <br />
-          Empowering Talent. 
-          <br />
-          <span style={{ opacity: 0.85 }}>Enabling Growth.</span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="hero-text"
-          style={{
-            fontSize: "18px",
-            color: "rgba(255,255,255,0.75)",
-            maxWidth: "480px",
-            marginBottom: "32px",
-          }}
-        >
-          End-to-end HR and workforce solutions designed for today’s evolving businesses. We connect the right people to the right roles—efficiently and ethically.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="hero-buttons"
-          style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}
-        >
-          <button
-            style={{
-              background: "#f5c26b",
-              color: "#1a1a1a",
-              border: "none",
-              padding: "16px 30px",
-              borderRadius: "999px",
-              fontWeight: 600,
-              fontSize: "16px",
-            }}
-          >
-            →
-          </button>
-
-          {/* <button
-            style={{
-              background: "transparent",
-              color: "#fff",
-              border: "1px solid rgba(255,255,255,0.35)",
-              padding: "16px 30px",
-              borderRadius: "999px",
-              fontSize: "16px",
-            }}
-          >
-            Download Free Toolkit
-          </button> */}
-        </motion.div>
       </div>
 
-      {/* RIGHT IMAGE */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 30 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="hero-right"
-        style={{ flex: 1 }}
-      >
-        <div
-          style={{
-            position: "relative",
-            borderRadius: "28px",
-            overflow: "hidden",
-            boxShadow: "0 40px 90px rgba(0,0,0,0.4)",
-          }}
-        >
-          <img
-            src={img1}
-            alt="Career comeback"
-            style={{ width: "100%", height: "auto", display: "block" }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              // background:"linear-gradient(to top, rgba(0,0,0,0.45), transparent)",
-            }}
-            // animate={{ y: [0, -12, 0] }}
-            //     transition={{ repeat: Infinity, duration: 6 }}
-          />
-        </div>
-      </motion.div>
-    </div>
-
-    {/* RESPONSIVE */}
-    <style>
-      {`
-        @media (max-width: 992px) {
-          .hero-wrapper {
-            flex-direction: column;
-            gap: 40px;
-            text-align: center;
-          }
-
-          .hero-title {
-            font-size: 40px;
-          }
-
-          .hero-text {
-            margin: 0 auto 28px;
-          }
-
-          .hero-buttons {
-            justify-content: center;
-          }
-        }
-
-        @media (max-width: 576px) {
-          .hero-title {
-            font-size: 32px;
-          }
-
-          .hero-text {
-            font-size: 16px;
-          }
-
-          .hero-right {
-            margin-top: 20px;
-          }
-        }
-      `}
-    </style>
-  </section>
-</div>
-
-
-
-
-      {/* ================= CONTENT SECTION ================= */}
-      <div style={{ backgroundColor: "#fff",  }}>
-
-        {/* WHAT WE DO */}
-        <div className="mb-5 pt-5">
-          <div
-            style={{
-              backgroundColor: "#0080A7",
-              display: "inline-block",
-              padding: "10px 25px",
-            }}
-          >
-            <h2
-              style={{
-                fontWeight: "700",
-                margin: 0,
-                color: "#fff",
-                fontSize: "50px",
-              }}
-            >
-              What We Do!
-            </h2>
-          </div>
-        </div>
-
-        {/* INTRO */}
-        <div
-          className="mb-5"
-          style={{
-            background: "linear-gradient(90deg, #CFF4FF 0%, #FFFFFF 100%)",
-            padding: "60px 0",
-          }}
-        >
-          <div className="container text-center">
-            <h2
-              className="fw-bold mb-3"
-              style={{
-                background: "linear-gradient(to right, #015670, #0081A7)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              Your Platform for Success
-            </h2>
-
-            <p
-              style={{
-                color: "#000",
-                lineHeight: "1.7",
-                fontSize: "20px",
-                fontWeight: 600,
-              }}
-            >
-              HRIFY is a leading business and digital consulting firm, helping
-              organizations overcome complex challenges and unlock new growth
-              opportunities through innovative strategies and smart digital
-              solutions.
-            </p>
-          </div>
-        </div>
-
-
-
-
-        <div className="container-fluid" style={{ backgroundColor: "#fff" }}>
-          <div className="container-fluid py-4">
-
-            {/* Digital Technology Services */}
-            <motion.div
-              variants={cardVariant}
-              initial="hiddenLeft"
-              whileInView="visible"
-              viewport={{ once: true }}
-              whileHover={{ y: -8 }}
-              className="mb-4 pb-3"
-              style={{ fontWeight: "700" }}
-            >
-              <h4
-                className="mb-4 fw-bold"
-                style={{
-                  fontSize: "30px",
-                  fontFamily: "'Poppins', sans-serif",
-                  color: "#007EA3"
-                }}
-              >
-                Digital Technology Services
-              </h4>
-
-              <p
-                className="mb-0 px-3"
-                style={{
-                  fontSize: "20px",
-                  lineHeight: "1.8",
-                  borderBottom: "2px solid rgba(0,0,0,0.1)",
-                  boxShadow: "0px 5px 10px rgba(0,0,0,0.1)",
-                  display: "inline-block",
-                  paddingBottom: "5px",
-                  fontFamily: "'Poppins', sans-serif"
-                }}
-              >
-                Our specialized digital services division, Hrify Digital, delivers
-                exceptional digital solutions that empower clients to transform and
-                revolutionize their businesses.
-              </p>
-            </motion.div>
-
-
-            {/* Talent Management */}
-            <motion.div
-              variants={cardVariant}
-              initial="hiddenRight"
-              whileInView="visible"
-              viewport={{ once: true }}
-              whileHover={{ y: -8 }}
-              className="mb-4 pb-3"
-              style={{
-                fontWeight: "700",
-                fontFamily: "'Poppins', sans-serif",
-              }}
-            >
-              <h4
-                className="mb-4 fw-bold"
-                style={{
-                  fontSize: "30px",
-                  color: "#007EA3"
-                }}
-              >
-                Talent Management
-              </h4>
-
-              <p
-                className="mb-0 px-3"
-                style={{
-                  fontSize: "20px",
-                  lineHeight: "1.8",
-                  borderBottom: "2px solid rgba(0,0,0,0.1)",
-                  boxShadow: "0px 5px 10px rgba(0,0,0,0.1)",
-                  display: "inline-block",
-                  paddingBottom: "5px",
-                }}
-              >
-                We are a digital consulting company that believes in
-                technology-driven transformation to create meaningful and lasting
-                impact. Our expertise enables clients to identify, recruit, and
-                place specialized talent, ensuring success today while building a
-                strong foundation for the future.
-              </p>
-            </motion.div>
-
-            {/* Business Process Management */}
-            <motion.div
-              variants={cardVariant}
-              initial="hiddenLeft"
-              whileInView="visible"
-              viewport={{ once: true }}
-              whileHover={{ y: -8 }}
-              className="mb-4 pb-3"
-              style={{
-                fontWeight: "700",
-                fontFamily: "'Poppins', sans-serif"
-              }}
-            >
-              <h4
-                className="mb-4 fw-bold"
-                style={{
-                  fontSize: "30px",
-                  fontFamily: "'Poppins', sans-serif",
-                  color: "#007EA3"
-                }}
-              >
-                Business Process Management
-              </h4>
-
-              <p
-                className="mb-0 px-3"
-                style={{
-                  fontSize: "20px",
-                  lineHeight: "1.8",
-                  borderBottom: "2px solid rgba(0,0,0,0.1)",
-                  boxShadow: "0px 5px 10px rgba(0,0,0,0.1)",
-                  display: "inline-block",
-                  paddingBottom: "5px",
-                  fontFamily: "'Poppins', sans-serif"
-                }}
-              >
-                We create robust digital business frameworks through continuous
-                analysis, testing, iteration, and performance monitoring to drive
-                long-term success and growth. Our business consulting services go
-                beyond meeting client needs by delivering a clear digital roadmap
-                that enables confident, data-driven decisions.
-              </p>
-            </motion.div>
-
-          </div>
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-        {/* IMAGES */}
-        <div className="container-fluid py-4 mb-5">
-          <div className="row g-4">
-            {[img2, img3, img4].map((img, index) => (
-              <div className="col-md-4" key={index}>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  <img
-                    src={img}
-                    alt={`img-${index}`}
-                    className="img-fluid"
-                    style={{
-                      width: "90%",
-                      height: "300px",   // ✅ SAME HEIGHT
-                      objectFit: "cover", // ✅ CROPPING OK
-                      borderRadius: "6px",
-                    }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-
-        {/* FINAL SECTION */}
-        <div className="container-fluid py-5 text-center">
-          <h2
-            className="fw-bold mb-4"
-            style={{ color: "#007EA3", fontSize: "60px" }}
-          >
-            Reinventing the Future
+      {/* ================= WHAT WE DO (VDart-style, simple) ================= */}
+      <div style={{ background: "#fff", padding: "80px 24px 40px" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          <p style={{ fontSize: "14px", color: COLORS.teal, fontWeight: 600, marginBottom: "12px", letterSpacing: "0.5px" }}>
+            What we do
+          </p>
+          <h2 style={{ fontSize: "34px", fontWeight: 700, color: COLORS.navy, marginBottom: "20px" }}>
+            Your platform for success.
           </h2>
-
-          <p
-            style={{
-              // color: "#0081A7",
-              maxWidth: "1300px",
-              margin: "0 auto",
-              fontSize: "30px",
-              lineHeight: "1.7",
-            }}
-          >
-            <b>Reinventing the Future by driving innovation, embracing digital
-              transformation, and delivering forward-thinking solutions that empower
-              businesses to grow, adapt, and succeed in a rapidly evolving world.</b>
+          <p style={{ fontSize: "17px", lineHeight: "1.8", color: "rgba(11,37,51,0.75)", maxWidth: "750px", margin: 0 }}>
+            HRIFY is a leading business and digital consulting firm, helping organizations
+            overcome complex challenges and unlock new growth opportunities through
+            innovative strategies and smart digital solutions.
           </p>
         </div>
+      </div>
 
+      {/* ================= SERVICES (VDart-style, image + text, no cards) ================= */}
+      <div style={{ background: "#fff", padding: "60px 24px 100px" }}>
+        <div
+          style={{
+            maxWidth: "1300px", margin: "0 auto", display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "50px",
+          }}
+        >
+          {serviceItems.map((item, i) => (
+            <div key={i}>
+              <img
+                src={item.img}
+                alt={item.title}
+                style={{
+                  width: "100%", height: "320px", objectFit: "cover",
+                  borderRadius: "8px", marginBottom: "26px",
+                }}
+              />
+              <h4 style={{ fontSize: "22px", fontWeight: 700, color: COLORS.navy, marginBottom: "14px" }}>
+                {item.title}
+              </h4>
+              <p style={{ fontSize: "16px", lineHeight: "1.75", color: "#3d4a52", marginBottom: "18px" }}>
+                {item.desc}
+              </p>
+              <Link
+                to={item.path}
+                style={{
+                  fontSize: "15px", fontWeight: 600, color: COLORS.teal,
+                  textDecoration: "none", borderBottom: `1.5px solid ${COLORS.teal}`, paddingBottom: "2px",
+                }}
+              >
+                {item.link}
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ================= REINVENTING THE FUTURE (VDart-style) ================= */}
+      <div style={{ background: "#fff", padding: "0" }}>
+        <div
+          style={{
+            maxWidth: "1300px", margin: "0 auto", padding: "60px 24px",
+            display: "flex", alignItems: "center", gap: "0", flexWrap: "wrap",
+            position: "relative",
+          }}
+        >
+          <div
+            className="future-text"
+            style={{
+              flex: "1 1 400px", background: "#fff", padding: "40px",
+              position: "relative", zIndex: 2, maxWidth: "500px",
+            }}
+          >
+            <p style={{ fontSize: "14px", color: "rgba(11,37,51,0.5)", marginBottom: "12px" }}>
+              How we can help you
+            </p>
+            <h2 style={{ fontSize: "34px", fontWeight: 400, color: COLORS.navy, marginBottom: "20px", lineHeight: 1.3 }}>
+              Reinventing the future.
+            </h2>
+            <p style={{ fontSize: "16px", lineHeight: "1.8", color: "rgba(11,37,51,0.75)", margin: 0 }}>
+              Constantly evolving, our expertise in connecting people, processes, and
+              technology helps our clients in building the right solutions for
+              current needs and future growth.
+            </p>
+          </div>
+
+          <div
+            className="future-image"
+            style={{
+              flex: "1 1 500px", marginLeft: "-80px", zIndex: 1,
+            }}
+          >
+            <img
+              src={futureImg}
+              alt="Reinventing the future"
+              style={{ width: "100%", height: "420px", objectFit: "cover", display: "block" }}
+            />
+          </div>
+        </div>
+
+        <style>
+          {`
+            @media (max-width: 900px) {
+              .future-image { margin-left: 0 !important; order: -1; }
+              .future-text { max-width: 100% !important; padding: 30px 0 !important; }
+            }
+          `}
+        </style>
       </div>
     </>
   );

@@ -1,54 +1,45 @@
-import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/Navbar/logo.png";
 import logo2 from "../assets/Navbar/logo2.png";
 
+const COLORS = {
+  navy: "#0B2533",
+  teal: "#087E8B",
+  gold: "#F5B942",
+};
+
 function Navbar() {
   const location = useLocation();
-
   const healthcareRoutes = ["/industries/Industry_HL"];
-  const lightBackgroundRoutes = ["/admin", "/contact"];
-
   const isHealthcarePage = healthcareRoutes.includes(location.pathname);
-  const isLightPage = lightBackgroundRoutes.includes(location.pathname);
 
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // ✅ FINAL TEXT COLOR FIX
-  const textColor = scrolled || isLightPage ? "#000" : "#fff";
+  const menuItems = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Services", path: "/services" },
+    { name: "Talent", path: "/talent_management" },
+  ];
 
   return (
     <nav
       className="navbar navbar-expand-lg fixed-top"
       style={{
-        backgroundColor: scrolled || isLightPage ? "#fff" : "transparent",
-        boxShadow:
-          scrolled || isLightPage
-            ? "0 2px 10px rgba(0,0,0,0.1)"
-            : "none",
-        padding: "15px clamp(10px, 4vw, 40px)",
-        transition: "all 0.3s ease",
-        zIndex: 1050
+        background: "#ffffff",
+        borderBottom: "1px solid rgba(11,37,51,0.08)",
+        boxShadow: "0 1px 6px rgba(0,0,0,0.05)",
+        padding: "16px clamp(16px, 4vw, 48px)",
+        zIndex: 1050,
       }}
     >
-      <div className="container-fluid">
-
+      <div className="container-fluid px-0">
         {/* LOGO */}
         <Link className="navbar-brand d-flex align-items-center" to="/">
           <img
             src={isHealthcarePage ? logo2 : logo}
             alt="HRIFY Logo"
-            style={{ height: "58px", transition: "0.3s" }}
+            style={{ height: "40px" }}
           />
         </Link>
 
@@ -58,6 +49,7 @@ function Navbar() {
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#hrifyNavbar"
+          style={{ borderColor: "rgba(11,37,51,0.3)" }}
         >
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -66,134 +58,48 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="hrifyNavbar">
           <ul
             className="navbar-nav mx-auto mb-2 mb-lg-0"
-            style={{ gap: "22px", fontSize: "16px", fontWeight: 600 }}
+            style={{ gap: "32px", fontSize: "15px", fontWeight: 500, whiteSpace: "nowrap" }}
           >
-            {[
-              { name: "Home", path: "/" },
-              { name: "About Us", path: "/about" },
-              { name: "Services", path: "/services" },
-              { name: "Talent Management", path: "/talent_management" }
-            ].map((item, i) => (
-              <li className="nav-item" key={i}>
-                <Link
-                  className="nav-link"
-                  to={item.path}
-                  style={{ color: textColor }}
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
+            {menuItems.map((item, i) => {
+              const isActive = location.pathname === item.path;
+              return (
+                <li className="nav-item" key={i}>
+                  <Link
+                    className="nav-link"
+                    to={item.path}
+                    style={{
+                      color: COLORS.navy,
+                      borderBottom: isActive ? `2px solid ${COLORS.gold}` : "2px solid transparent",
+                      paddingBottom: "4px",
+                    }}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              );
+            })}
 
-            {/* PRODUCT */}
-      <li className="nav-item dropdown">
-  <Link
-    className="nav-link dropdown-toggle"
-    to="#"
-    data-bs-toggle="dropdown"
-    style={{ color: textColor }}
-  >
-    Product & Solutions
-  </Link>
+            <li className="nav-item dropdown">
+              <Link
+                className="nav-link dropdown-toggle"
+                to="#"
+                data-bs-toggle="dropdown"
+                style={{ color: COLORS.navy }}
+              >
+                Solutions
+              </Link>
+              <ul className="dropdown-menu">
+                <li>
+                  <Link className="dropdown-item" to="/sonachala">Sonachala</Link>
+                </li>
+              </ul>
+            </li>
 
-  <ul className="dropdown-menu">
-
-    {/* Sonachala */}
-    <li>
-          <Link className="dropdown-item" to="/sonachala">
-          Sonachala 
-          </Link>
-        </li>
-    {/* <li
-      style={{ position: "relative" }}
-      onMouseEnter={(e) =>
-        (e.currentTarget.querySelector(".submenu").style.display = "block")
-      }
-      onMouseLeave={(e) =>
-        (e.currentTarget.querySelector(".submenu").style.display = "none")
-      }
-    >
-      <span className="dropdown-item">Hotel Tech </span>
-
-      <ul
-        className="dropdown-menu submenu"
-        style={{
-          display: "none",
-          position: "absolute",
-          left: "100%",
-          top: "0"
-        }}
-      >
-        
-      </ul>
-    </li> */}
-
-    {/* Sonagiri */}
-    {/* <li
-      style={{ position: "relative" }}
-      onMouseEnter={(e) =>
-        (e.currentTarget.querySelector(".submenu").style.display = "block")
-      }
-      onMouseLeave={(e) =>
-        (e.currentTarget.querySelector(".submenu").style.display = "none")
-      }
-    >
-      <span className="dropdown-item">Property Tech</span>
-
-      <ul
-        className="dropdown-menu submenu"
-        style={{
-          display: "none",
-          position: "absolute",
-          left: "100%",
-          top: "0"
-        }}
-      >
-        <li>
-          <Link className="dropdown-item" to="/sonagiri">
-           Sonagiri
-          </Link>
-        </li>
-      </ul>
-    </li> */}
-
-    {/* Pillamar */}
-    {/* <li
-      style={{ position: "relative" }}
-      onMouseEnter={(e) =>
-        (e.currentTarget.querySelector(".submenu").style.display = "block")
-      }
-      onMouseLeave={(e) =>
-        (e.currentTarget.querySelector(".submenu").style.display = "none")
-      }
-    >
-      <span className="dropdown-item">  Payroll</span>
-
-      <ul
-        className="dropdown-menu submenu"
-        style={{
-          display: "none",
-          position: "absolute",
-          left: "100%",
-          top: "0"
-        }}
-      >
-        <li>
-          <Link className="dropdown-item" to="/pillamar">
-          Pillamar 
-          </Link>
-        </li>
-      </ul>
-    </li> */}
-
-  </ul>
-</li>
-            {/* INDUSTRIES */}
             <li className="nav-item dropdown">
               <button
                 className="nav-link dropdown-toggle btn btn-link"
                 data-bs-toggle="dropdown"
-                style={{ color: textColor, textDecoration: "none" }}
+                style={{ color: COLORS.navy, textDecoration: "none" }}
               >
                 Industries
               </button>
@@ -205,19 +111,17 @@ function Navbar() {
               </ul>
             </li>
 
-            
             <li className="nav-item">
-              <Link className="nav-link" to="/opportunities" style={{ color: textColor }}>
+              <Link className="nav-link" to="/opportunities" style={{ color: COLORS.navy }}>
                 Opportunities
               </Link>
             </li>
 
-            {/* CAREERS */}
             <li className="nav-item dropdown">
               <button
                 className="nav-link dropdown-toggle btn btn-link"
                 data-bs-toggle="dropdown"
-                style={{ color: textColor, textDecoration: "none" }}
+                style={{ color: COLORS.navy, textDecoration: "none" }}
               >
                 Careers
               </button>
@@ -228,30 +132,33 @@ function Navbar() {
                 <li><Link className="dropdown-item" to="/prohub/revive">Rise Program</Link></li>
               </ul>
             </li>
-
           </ul>
 
           {/* BUTTONS */}
-          <div className="d-flex gap-2 mt-3 mt-lg-0">
+          <div className="d-flex gap-3 mt-3 mt-lg-0 align-items-center">
             <Link
               to="/contact"
               className="btn"
               style={{
-                background: "linear-gradient(to right, #015670, #0081A7)",
-                color: "#fff",
-                borderRadius: "8px"
+                background: "transparent",
+                color: COLORS.teal,
+                border: `1.5px solid ${COLORS.teal}`,
+                borderRadius: "6px",
+                fontWeight: 500,
+                fontSize: "14.5px",
+                padding: "9px 22px",
               }}
             >
-              Contact Us
+              Contact us
             </Link>
 
             <Link
               to="/admin"
-              className="btn"
               style={{
-                background: "linear-gradient(to right, #015670, #0081A7)",
-                color: "#fff",
-                borderRadius: "8px"
+                color: COLORS.navy,
+                fontWeight: 500,
+                fontSize: "14.5px",
+                textDecoration: "none",
               }}
             >
               Login

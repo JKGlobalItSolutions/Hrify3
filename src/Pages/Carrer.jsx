@@ -124,7 +124,7 @@ const toolkitFeatures = [
                               </h3>
                               <p style={{
                                 paddingLeft: "30px",
-                                fontSize: "32px", fontSize: "50px"
+                               fontSize: "50px"
                               }}>→</p>
                 
                               {/* small scroll space only */}

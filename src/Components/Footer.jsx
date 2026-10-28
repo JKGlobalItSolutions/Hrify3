@@ -2,11 +2,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import logo from "../assets/Navbar/logo.png";
-import footerBg from "../assets/Footer/img1.jpg";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 function Footer() {
     const [showTopBtn, setShowTopBtn] = useState(false);
+    const [email, setEmail] = useState("");
 
     // show button after scroll
     useEffect(() => {
@@ -25,153 +25,179 @@ function Footer() {
         });
     };
 
+    const handleNewsletterSubmit = (e) => {
+        e.preventDefault();
+        if (!email) return;
+        // TODO: hook this up to actual newsletter API
+        console.log("Newsletter signup:", email);
+        setEmail("");
+    };
+
     return (
         <>
             <footer
                 style={{
-                    backgroundImage: `url(${footerBg})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
+                    background: "linear-gradient(180deg, #0A1B3D 0%, #081533 100%)",
                     color: "#d1d5db",
-                    padding: "40px clamp(20px, 5vw, 60px) 20px",
+                    padding: "70px clamp(20px, 5vw, 60px) 0",
                 }}
             >
-                <div className="container-fluid">
-                    <div className="row">
+                <div className="container-fluid" style={{ maxWidth: "1300px", margin: "0 auto" }}>
+                    <div className="row gy-5">
 
-                        {/* Quick Links */}
-                        <div className="col-lg-3 col-md-6 mb-4">
-                            <h5 style={{ color: "white", marginBottom: "20px" }}>Quick Links</h5>
-                            <ul style={{ lineHeight: "2", listStyleType: "disc" }}>
-                                <li><Link to="/" style={linkStyle}>Home</Link></li>
-                                <li><Link to="/services" style={linkStyle}>Services</Link></li>
-                                <li><Link to="/talent_management" style={linkStyle}>Talent Management</Link></li>
-                                {/* <li><Link to="/products" style={linkStyle}>Product</Link></li> */}
-                                {/* <li><Link to="/industries" style={linkStyle}>Industries</Link></li> */}
-                                {/* <li><Link to="/insights" style={linkStyle}>Insights</Link></li> */}
-                                <li><Link to="/about" style={linkStyle}>About</Link></li>
-                                <li><Link to="/prohub/Carrer" style={linkStyle}>Careers</Link></li>
-                                <li><Link to="/prohub/internship" style={linkStyle}>Internship</Link></li>
-                                <li><Link to="/prohub/referal" style={linkStyle}>Referal Program</Link></li>
-                                <li><Link to="/contact" style={linkStyle}>Contact Us</Link></li>
-                            </ul>
-                        </div>
-
-                        {/* IT Services */}
-                        <div className="col-lg-3 col-md-6 mb-4">
-                            <h5 style={{ color: "white", marginBottom: "20px" }}>
-                                IT Services & Consulting
-                            </h5>
-                            <ul style={{ lineHeight: "2", listStyleType: "disc" }}>
-                                <li>Software Development</li>
-                                <li>Web Development</li>
-                                <li>App Development</li>
-                                <li>System Integration</li>
-                                <li>Cyber Security</li>
-                                <li>Block Chain</li>
-                                <li>AL & ML</li>
-                                <li>Manual Service</li>
-                                <li>Enterprise</li>
-                                <li>Quality Engineering</li>
-                                <li>Networking Solutions</li>
-                            </ul>
-                        </div>
-
-                        {/* Talent Management */}
-                        <div className="col-lg-3 col-md-6 mb-4">
-                            <h5 style={{ color: "white", marginBottom: "20px" }}>
-                                Talent Management
-                            </h5>
-                            <ul style={{ lineHeight: "2", listStyleType: "disc" }}>
-                                <li>Contract Staffing and Placement</li>
-                                <li>Contract to Hire</li>
-                                <li>Permanent Staffing</li>
-                                <li>Supplier Rationalization</li>
-                                <li>Hire, Train & Deploy</li>
-                            </ul>
-                        </div>
-
-                        {/* Logo & Social */}
-                        {/* Logo & Social */}
-                        <div className="col-lg-3 col-md-6 text-lg-end text-md-start">
+                        {/* Brand + About */}
+                        <div className="col-lg-3 col-md-6">
                             <img
                                 src={logo}
                                 alt="HRIFY Logo"
                                 style={{
-                                    height: "45px",
+                                    height: "40px",
                                     background: "white",
-                                    padding: "8px",
+                                    padding: "6px 10px",
                                     borderRadius: "6px",
                                 }}
                             />
-
-                            {/* Social Icons */}
-                            <div className="d-flex gap-3 justify-content-lg-end justify-content-start mt-4">
-                                <a
-                                    href="https://www.facebook.com/share/16sPa1rCRq/"
-                                    style={iconStyle}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
+                            <p
+                                style={{
+                                    marginTop: "16px",
+                                    fontSize: "13.5px",
+                                    lineHeight: "1.7",
+                                    color: "#b8c0cc",
+                                }}
+                            >
+                                HRIFY is a trusted partner in technology services and talent
+                                solutions. We transform businesses with innovative solutions
+                                and the right talent.
+                            </p>
+                            <div className="d-flex gap-2 mt-3">
+                                <a href="https://www.facebook.com/share/16sPa1rCRq/" style={iconStyle} target="_blank" rel="noreferrer">
                                     <i className="bi bi-facebook"></i>
                                 </a>
-
-  <a
-    href="https://www.linkedin.com/company/hrifytechnologies/about/"
-    style={iconStyle}
-    target="_blank"
-    rel="noreferrer"
-  >
-    <i className="bi bi-linkedin"></i>
-  </a>
-                                <a
-                                    href="https://wa.me/+918608600778"
-                                    style={iconStyle}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
+                                <a href="https://www.linkedin.com/company/hrifytechnologies/about/" style={iconStyle} target="_blank" rel="noreferrer">
+                                    <i className="bi bi-linkedin"></i>
+                                </a>
+                                <a href="https://wa.me/+918608600778" style={iconStyle} target="_blank" rel="noreferrer">
                                     <i className="bi bi-whatsapp"></i>
                                 </a>
-
-                                <a
-                                    href="https://www.instagram.com/hrifyofficial?igsh=MXFlYXl6MjMyZzZ4Nw=="
-                                    style={iconStyle}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
+                                <a href="https://www.instagram.com/hrifyofficial?igsh=MXFlYXl6MjMyZzZ4Nw==" style={iconStyle} target="_blank" rel="noreferrer">
                                     <i className="bi bi-instagram"></i>
                                 </a>
                             </div>
-
-                            {/* Contact Details */}
-                            <div
-                                style={{
-                                    marginTop: "20px",
-                                    color: "#d1d5db",
-                                    fontSize: "14px",
-                                    lineHeight: "1.7",
-                                }}
-                            >
-                                {/* <p style={{ marginBottom: "8px" }}>
-                                    <i className="bi bi-envelope-fill me-2"></i>
-                                    <a
-                                        href="mailto:jayakrishnan@hrify.co.in"
-                                        style={{ color: "#fff", textDecoration: "none", fontWeight: "500" }}
-                                    >
-                                        jayakrishnan@hrify.co.in
-                                    </a>
-                                </p> */}
-
-                                <p style={{ marginBottom: 0, color: "#fff", fontWeight: "500" }}>
-                                    <i className="bi bi-geo-alt-fill me-2"></i>
-                                    Annai Parvathi Nagar, Opp. Collector Office,<br />
-                                    Vengikkal, Tiruvannamalai – 606604
-                                </p>
-                            </div>
                         </div>
 
+                        {/* Quick Links */}
+                        <div className="col-lg-2 col-md-6">
+                            <h6 style={headingStyle}>Quick Links</h6>
+                            <ul style={listStyle}>
+                                <li><Link to="/" style={linkStyle}>Home</Link></li>
+                                <li><Link to="/about" style={linkStyle}>About Us</Link></li>
+                                <li><Link to="/services" style={linkStyle}>Services</Link></li>
+                                <li><Link to="/talent_management" style={linkStyle}>Talent Management</Link></li>
+                                <li><Link to="/prohub/Carrer" style={linkStyle}>Careers</Link></li>
+                                <li><Link to="/contact" style={linkStyle}>Contact Us</Link></li>
+                            </ul>
+                        </div>
 
+                        {/* Services */}
+                        <div className="col-lg-2 col-md-6">
+                            <h6 style={headingStyle}>Services</h6>
+                            <ul style={listStyle}>
+                                <li style={plainItem}>IT Services & Consulting</li>
+                                <li style={plainItem}>Talent Management</li>
+                                <li style={plainItem}>Staffing Solutions</li>
+                                <li style={plainItem}>Enterprise Solutions</li>
+                                <li style={plainItem}>Digital Transformation</li>
+                                <li style={plainItem}>Support & Maintenance</li>
+                            </ul>
+                        </div>
+
+                        {/* Industries */}
+                        <div className="col-lg-2 col-md-6">
+                            <h6 style={headingStyle}>Industries</h6>
+                            <ul style={listStyle}>
+                                <li style={plainItem}>IT & Technology</li>
+                                <li style={plainItem}>Healthcare</li>
+                                <li style={plainItem}>Manufacturing</li>
+                                <li style={plainItem}>BFSI</li>
+                                <li style={plainItem}>Retail & E-commerce</li>
+                                <li style={plainItem}>Education</li>
+                            </ul>
+                        </div>
+
+                        {/* Resources */}
+                        <div className="col-lg-1 col-md-6">
+                            <h6 style={headingStyle}>Resources</h6>
+                            <ul style={listStyle}>
+                                <li style={plainItem}>Blog</li>
+                                <li style={plainItem}>Case Studies</li>
+                                <li style={plainItem}>Whitepapers</li>
+                                <li style={plainItem}>Events</li>
+                                <li style={plainItem}>News & Insights</li>
+                                <li style={plainItem}>FAQs</li>
+                            </ul>
+                        </div>
+
+                        {/* Newsletter */}
+                        <div className="col-lg-2 col-md-6">
+                            <h6 style={headingStyle}>Newsletter</h6>
+                            <p style={{ fontSize: "13px", color: "#b8c0cc", lineHeight: "1.6" }}>
+                                Subscribe to our newsletter to get the latest updates and insights.
+                            </p>
+                            <form onSubmit={handleNewsletterSubmit} className="d-flex" style={{ maxWidth: "220px" }}>
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="Enter your email"
+                                    required
+                                    style={{
+                                        flex: 1,
+                                        padding: "8px 10px",
+                                        fontSize: "13px",
+                                        border: "none",
+                                        borderRadius: "6px 0 0 6px",
+                                        outline: "none",
+                                    }}
+                                />
+                                <button
+                                    type="submit"
+                                    style={{
+                                        background: "#0aa6c8",
+                                        border: "none",
+                                        borderRadius: "0 6px 6px 0",
+                                        padding: "0 14px",
+                                        color: "white",
+                                    }}
+                                >
+                                    <i className="bi bi-send-fill"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    {/* BOTTOM BAR */}
+                    <div
+                        className="d-flex flex-column flex-lg-row justify-content-between align-items-center gap-2"
+                        style={{
+                            borderTop: "1px solid rgba(255,255,255,0.1)",
+                            marginTop: "55px",
+                            padding: "26px 0",
+                            fontSize: "12.5px",
+                            color: "#9aa3af",
+                        }}
+                    >
+                        <span>© {new Date().getFullYear()} HRIFY. All Rights Reserved.</span>
+
+                        <div className="d-flex gap-3">
+                            <Link to="/privacy-policy" style={bottomLinkStyle}>Privacy Policy</Link>
+                            <Link to="/terms-of-use" style={bottomLinkStyle}>Terms of Use</Link>
+                            <Link to="/cookie-policy" style={bottomLinkStyle}>Cookie Policy</Link>
+                        </div>
+
+                        <span style={{ textAlign: "center" }}>
+                            <i className="bi bi-geo-alt-fill me-1"></i>
+                            Annai Parvathi Nagar, Opp. Collector Office, Vengikkal, Tiruvannamalai – 606604
+                        </span>
                     </div>
                 </div>
             </footer>
@@ -199,28 +225,49 @@ function Footer() {
                 >
                     <i className="bi bi-arrow-up"></i>
                 </button>
-
             )}
         </>
     );
 }
 
 const iconStyle = {
-    width: "36px",
-    height: "36px",
+    width: "34px",
+    height: "34px",
     borderRadius: "50%",
     background: "#0aa6c8",
     color: "white",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    fontSize: "16px",
+    fontSize: "15px",
     textDecoration: "none",
 };
 
+const headingStyle = {
+    color: "white",
+    marginBottom: "16px",
+    fontSize: "14.5px",
+    fontWeight: "600",
+};
+
+const listStyle = {
+    lineHeight: "2",
+    listStyleType: "none",
+    paddingLeft: 0,
+    fontSize: "13px",
+};
+
+const plainItem = {
+    color: "#b8c0cc",
+};
 
 const linkStyle = {
-    color: "#d1d5db",
+    color: "#b8c0cc",
+    textDecoration: "none",
+};
+
+const bottomLinkStyle = {
+    color: "#9aa3af",
     textDecoration: "none",
 };
 
