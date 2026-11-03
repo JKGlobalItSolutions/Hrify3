@@ -37,7 +37,7 @@ const radioStyle = {
 /* Fill these in with the real inbox / number / handles */
 const CONTACT_INFO = {
   email: "info@hrify.com",
-  phone: "+91 00000 00000",
+  phone: "+91 70102 38609",
   address: "Annai Parvathi Nagar, Opp. Collector Office, Vengikkal, Tiruvannamalai – 606604",
 };
 

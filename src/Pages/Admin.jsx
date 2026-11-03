@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import img1 from "../assets/Contact/img1.jpeg"
+import img1 from "../assets/Contact/login.jpg";
 
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -16,6 +16,9 @@ const C = {
   border: "#E4E9EC",
   white: "#FFFFFF",
 };
+
+// Fixed navbar height (adjust if your navbar is taller/shorter)
+const NAV_H = "83px";
 
 export default function AdminDashboard() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -123,7 +126,7 @@ export default function AdminDashboard() {
   // If not logged in, show login form
   if (!isLoggedIn) {
     return (
-      <div className="container-fluid p-0" style={{ minHeight: "100vh" }}>
+      <div className="container-fluid p-0" style={{ minHeight: "100vh", paddingTop: NAV_H }}>
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
@@ -206,12 +209,13 @@ export default function AdminDashboard() {
           }
           .admin-login-visual {
             position: relative;
-            height: 100vh;
+            height: calc(100vh - ${NAV_H});
           }
           .admin-login-visual img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center 55%;
           }
           .admin-login-visual-overlay {
             position: absolute;
@@ -236,7 +240,10 @@ export default function AdminDashboard() {
         <div className="row g-0 h-100 admin-login-root">
 
           {/* LEFT LOGIN FORM */}
-          <div className="col-md-5 d-flex align-items-center justify-content-center" style={{ background: C.bg, minHeight: "100vh" }}>
+          <div
+            className="col-md-5 d-flex align-items-center justify-content-center"
+            style={{ background: C.bg, minHeight: `calc(100vh - ${NAV_H})` }}
+          >
             <div className="admin-login-card">
               <div className="admin-login-eyebrow">HRIFY Admin</div>
               <div className="admin-login-title">Welcome Back</div>
@@ -290,7 +297,7 @@ export default function AdminDashboard() {
           {/* RIGHT IMAGE SECTION */}
           <div className="col-md-7 d-none d-md-block p-0 admin-login-visual">
             <img
-              src={img1}   // <-- change image path if needed
+              src={img1}
               alt="Login"
             />
             <div className="admin-login-visual-overlay">

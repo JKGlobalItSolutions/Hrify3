@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import img2 from "../assets/Home/img2.jpg";
 import img3 from "../assets/Home/img3.jpg";
 import img4 from "../assets/Home/img4.jpg";
-import futureImg from "../assets/Talent_management/img2.jpeg";
+import futureImg from "../assets/Home/renovote.jpg";
 import { Users, Wallet, ClipboardCheck, Target, Settings, Laptop } from "lucide-react";
 import HeroSection from "../Components/HeroSection";
 

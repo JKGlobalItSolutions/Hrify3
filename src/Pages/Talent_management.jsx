@@ -4,6 +4,7 @@ import img1 from "../assets/Talent_management/img1.png";
 import img2 from "../assets/Talent_management/img2.jpeg";
 import img3 from "../assets/Talent_management/img3.jpeg";
 import img5 from "../assets/Talent_management/img5.png";
+import aiImg from "../assets/Talent_management/ai.jpg";
 import logo1 from "../assets/Services/logo1.png";
 import logo2 from "../assets/Services/logo2.png";
 import logo3 from "../assets/Services/logo3.png";
@@ -52,7 +53,7 @@ const SECTORS = [
     desc: "Talent that keeps data accessible and infrastructure reliable, so teams can work smarter and stay ahead.",
   },
   {
-    img: img2,
+    img: aiImg,
     title: "AI & Automation",
     desc: "Engineers and analysts who bring AI and automation expertise to modernize workflows and unlock efficiency.",
   },

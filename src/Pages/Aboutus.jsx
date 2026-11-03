@@ -127,7 +127,7 @@ function About() {
     <>
       <style>
         {`
-          body { margin: 0; padding: 0; }
+          body { margin: 0; padding: 0; overflow-x: hidden; }
 
           .glass-card{
             background: rgba(255,255,255,0.95);
@@ -197,6 +197,7 @@ function About() {
             align-items: stretch;
             width: 100%;
             min-height: 560px;
+            overflow: hidden;
           }
           .full-bleed-split.reverse{
             flex-direction: row-reverse;
@@ -212,6 +213,7 @@ function About() {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: 20% center;
             display: block;
           }
           .full-bleed-text{

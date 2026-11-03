@@ -258,7 +258,7 @@ function Industry_HL() {
       >
         <div
           className="row g-0 align-items-stretch"
-          style={{ minHeight: "640px", margin: 0 }}
+          style={{ minHeight: "520px", margin: 0 }}
         >
           <div className="col-lg-6 p-0">
             <motion.div
@@ -278,7 +278,7 @@ function Industry_HL() {
                   width: "100%",
                   height: "100%",
                   objectFit: "cover",
-                  objectPosition: "center 30%",
+                  objectPosition: "25% center",
                 }}
               />
             </motion.div>
@@ -287,7 +287,7 @@ function Industry_HL() {
           <div
             className="col-lg-6"
             style={{
-              padding: "90px clamp(24px, 6vw, 90px)",
+              padding: "60px clamp(24px, 6vw, 90px)",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
